@@ -4,7 +4,7 @@
 
 Longtail is a two-layer Stellar payments stack: an invisible wallet infrastructure layer that abstracts crypto complexity behind familiar Web2 logins, and a flagship point-of-sale app that puts that infrastructure to work for local Bermudian merchants.
 
-> Named after the *white-tailed tropicbird* — Bermuda's national bird and a symbol found on its coinage and coat of arms. Just as the longtail is a fixture of the Bermudian coastline, this project aims to be a fixture of Bermudian commerce.
+> Named after the _white-tailed tropicbird_ — Bermuda's national bird and a symbol found on its coinage and coat of arms. Just as the longtail is a fixture of the Bermudian coastline, this project aims to be a fixture of Bermudian commerce.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#license)
 [![Stellar](https://img.shields.io/badge/built%20on-Stellar-3E1BDB.svg)](https://stellar.org)
@@ -37,12 +37,12 @@ Longtail is a two-layer Stellar payments stack: an invisible wallet infrastructu
 
 Longtail is built on two complementary products:
 
-| | **Longtail Wallet SDK** | **Longtail POS** |
-|---|---|---|
-| **What it is** | A developer tool / SDK | A mobile point-of-sale app |
-| **Audience** | Developers building on legacy web/mobile stacks | Bermudian small businesses & their customers |
-| **Core job** | Spin up invisible, single-use Stellar wallets via Google/Apple login — no seed phrases, ever | Accept Stellar-based digital assets at checkout, abstract gas fees, and settle instantly in Bermudian dollars (BMD) |
-| **Relationship** | The engine | The flagship application built on the engine |
+|                  | **Longtail Wallet SDK**                                                                      | **Longtail POS**                                                                                                    |
+| ---------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **What it is**   | A developer tool / SDK                                                                       | A mobile point-of-sale app                                                                                          |
+| **Audience**     | Developers building on legacy web/mobile stacks                                              | Bermudian small businesses & their customers                                                                        |
+| **Core job**     | Spin up invisible, single-use Stellar wallets via Google/Apple login — no seed phrases, ever | Accept Stellar-based digital assets at checkout, abstract gas fees, and settle instantly in Bermudian dollars (BMD) |
+| **Relationship** | The engine                                                                                   | The flagship application built on the engine                                                                        |
 
 The Wallet SDK is the infrastructure layer that makes crypto payments feel like a normal login. Longtail POS is the first real-world proof that the infrastructure works — a merchant-facing app where nobody involved needs to know what a blockchain is.
 
@@ -50,7 +50,7 @@ The Wallet SDK is the infrastructure layer that makes crypto payments feel like 
 
 - **Crypto UX is still broken for normal people.** Seed phrases, gas fees, and wallet extensions are a hard wall for merchants and customers who just want to accept and make payments.
 - **Small island economies are underserved by traditional payment rails.** Card processing fees, chargebacks, and slow settlement hurt small Bermudian merchants disproportionately.
-- **Stellar is fast and cheap, but inaccessible.** The chain solves the settlement problem; it doesn't solve the *human* problem of onboarding non-crypto-native users.
+- **Stellar is fast and cheap, but inaccessible.** The chain solves the settlement problem; it doesn't solve the _human_ problem of onboarding non-crypto-native users.
 
 ## The Solution
 
@@ -66,7 +66,7 @@ Longtail hides the blockchain entirely:
 ```mermaid
 flowchart TD
     subgraph Client["Client Layer"]
-        A[Merchant Mobile App] 
+        A[Merchant Mobile App]
         B[Customer Checkout UI]
     end
 
@@ -168,21 +168,22 @@ longtail/
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Mobile app (POS) | React Native (or Flutter — TBD, see [Roadmap](#roadmap)) |
-| Wallet SDK | TypeScript, Stellar SDK (`js-stellar-sdk`), Soroban (for future smart contract logic) |
-| Blockchain | Stellar network (mainnet/testnet), Horizon API |
-| Auth | OAuth 2.0 (Google, Apple) |
-| Key custody | Secure enclave / threshold signing (MPC) — provider TBD |
-| On/off-ramp | Licensed Stellar anchor(s) operating in/around Bermuda |
-| Backend | Node.js, PostgreSQL, Redis (session/queue state) |
-| Infra | Docker, Terraform, GitHub Actions (CI/CD) |
-| Monorepo tooling | Turborepo, pnpm workspaces |
+| Layer            | Technology                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------- |
+| Mobile app (POS) | React Native (or Flutter — TBD, see [Roadmap](#roadmap))                              |
+| Wallet SDK       | TypeScript, Stellar SDK (`js-stellar-sdk`), Soroban (for future smart contract logic) |
+| Blockchain       | Stellar network (mainnet/testnet), Horizon API                                        |
+| Auth             | OAuth 2.0 (Google, Apple)                                                             |
+| Key custody      | Secure enclave / threshold signing (MPC) — provider TBD                               |
+| On/off-ramp      | Licensed Stellar anchor(s) operating in/around Bermuda                                |
+| Backend          | Node.js, PostgreSQL, Redis (session/queue state)                                      |
+| Infra            | Docker, Terraform, GitHub Actions (CI/CD)                                             |
+| Monorepo tooling | Turborepo, pnpm workspaces                                                            |
 
 ## How It Works
 
 ### Wallet creation (SDK)
+
 1. Developer integrates `@longtail/wallet-sdk` into their app.
 2. End user clicks "Continue with Google/Apple."
 3. SDK exchanges the OAuth token for a deterministic or session-bound key derivation.
@@ -190,6 +191,7 @@ longtail/
 5. The wallet is used for the current session/transaction, then expired or archived per the developer's configuration.
 
 ### A sale (POS)
+
 1. Merchant opens Longtail POS and logs in (wallet auto-provisioned via the SDK).
 2. Customer scans a QR code or taps to pay with a Stellar-based asset (e.g., a USD-pegged Stellar asset).
 3. The asset lands in the merchant's ephemeral wallet.
@@ -209,7 +211,7 @@ longtail/
 
 ```bash
 # Clone the repo
-git clone https://github.com/<your-org>/longtail.git
+git clone https://github.com/devprom6/Longtail.git
 cd longtail
 
 # Install dependencies across the monorepo
@@ -260,8 +262,8 @@ const wallet = new LongtailWallet({
 // Trigger social login and provision an ephemeral wallet
 const session = await wallet.connect();
 
-console.log(session.publicKey);   // Stellar public key — never exposes a secret/seed
-console.log(session.expiresAt);   // Ephemeral session expiry
+console.log(session.publicKey); // Stellar public key — never exposes a secret/seed
+console.log(session.expiresAt); // Ephemeral session expiry
 
 // Send a payment — gas is abstracted automatically
 await wallet.sendPayment({
@@ -285,8 +287,8 @@ const sale = await createSale({
 // fx-engine handles conversion + settlement
 const settlement = await sale.settle({ targetCurrency: "BMD" });
 
-console.log(settlement.status);      // "settled"
-console.log(settlement.bmdAmount);   // e.g. 25.00
+console.log(settlement.status); // "settled"
+console.log(settlement.bmdAmount); // e.g. 25.00
 ```
 
 ## Security & Compliance
@@ -326,4 +328,4 @@ Contributions are welcome. Please open an issue to discuss significant changes b
 
 ---
 
-*Longtail is an early-stage project. Nothing in this repository should be construed as financial, legal, or regulatory advice. Any production deployment handling real customer funds requires appropriate licensing in the relevant jurisdiction(s).*
+_Longtail is an early-stage project. Nothing in this repository should be construed as financial, legal, or regulatory advice. Any production deployment handling real customer funds requires appropriate licensing in the relevant jurisdiction(s)._

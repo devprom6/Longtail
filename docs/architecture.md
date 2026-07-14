@@ -3,7 +3,7 @@
 ```mermaid
 flowchart TD
     subgraph Client["Client Layer"]
-        A[Merchant Mobile App] 
+        A[Merchant Mobile App]
         B[Customer Checkout UI]
     end
 
